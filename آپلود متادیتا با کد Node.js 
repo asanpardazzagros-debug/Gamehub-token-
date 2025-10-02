@@ -1,0 +1,17 @@
+const { NFTStorage, File } = require('nft.storage');
+const fs = require('fs');
+const path = require('path');
+
+const API_KEY = 'توکن API شما از NFT.Storage';
+
+async function uploadMetadata() {
+  const client = new NFTStorage({ token: API_KEY });
+
+  const metadataFile = fs.readFileSync(path.join(__dirname, 'gamehub-logo-metadata.json'));
+  const metadataCID = await client.storeBlob(new File([metadataFile], 'gamehub-logo-metadata.json'));
+
+  console.log('✅ CID متادیتا:', metadataCID);
+  console.log('🔗 لینک IPFS:', `https://ipfs.io/ipfs/${metadataCID}`);
+}
+
+uploadMetadata();
