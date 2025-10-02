@@ -1,0 +1,13 @@
+gamehub-dashboard/
+├── public/
+├── src/
+│   ├── components/
+│   │   ├── WalletConnect.jsx
+│   │   ├── TokenDashboard.jsx
+│   │   └── NFTGallery.jsx
+│   ├── abi/
+│   │   └── GameHubToken.json
+│   ├── App.jsx
+│   └── index.js
+├── package.json
+└── tailwind.config.js
