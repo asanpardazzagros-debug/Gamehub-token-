@@ -1,0 +1,42 @@
+import { useEffect, useState } from "react";
+import { ethers } from "ethers";
+
+const nftContractAddress = "آدرس قرارداد NFT";
+const nftABI = [/* ABI استاندارد ERC-721 */];
+
+export default function NFTGallery({ userAddress }) {
+  const [nfts, setNfts] = useState([]);
+
+  const fetchNFTs = async () => {
+    const provider = new ethers.BrowserProvider(window.ethereum);
+    const contract = new ethers.Contract(nftContractAddress, nftABI, provider);
+    const balance = await contract.balanceOf(userAddress);
+    const tokens = [];
+
+    for (let i = 0; i < balance; i++) {
+      const tokenId = await contract.tokenOfOwnerByIndex(userAddress, i);
+      const uri = await contract.tokenURI(tokenId);
+      tokens.push({ tokenId, uri });
+    }
+
+    setNfts(tokens);
+  };
+
+  useEffect(() => {
+    if (userAddress) fetchNFTs();
+  }, [userAddress]);
+
+  return (
+    <div className="my-4">
+      <h2 className="text-xl font-bold text-center">🎨 NFTهای شما</h2>
+      <div className="grid grid-cols-2 gap-4 mt-2">
+        {nfts.map((nft) => (
+          <div key={nft.tokenId} className="border p-2 rounded">
+            <p>توکن #{nft.tokenId.toString()}</p>
+            <img src={nft.uri} alt={`NFT ${nft.tokenId}`} className="w-full h-auto" />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
