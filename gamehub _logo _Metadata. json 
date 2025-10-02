@@ -1,0 +1,27 @@
+{
+  "name": "GameHub Logo",
+  "description": "Official NFT logo for GameHub (GHT), symbolizing digital royalty, power, and Web3 identity.",
+  "image": "ipfs://<CID-of-logo-image>",
+  "attributes": [
+    {
+      "trait_type": "Style",
+      "value": "Cyber Lion"
+    },
+    {
+      "trait_type": "Color Scheme",
+      "value": "Blue, Gold, Black"
+    },
+    {
+      "trait_type": "Gemstone",
+      "value": "Electric Blue Diamond"
+    },
+    {
+      "trait_type": "Project",
+      "value": "Gamehub-token-"
+    },
+    {
+      "trait_type": "Creator",
+      "value": "Khalil / APZ"
+    }
+  ]
+}
