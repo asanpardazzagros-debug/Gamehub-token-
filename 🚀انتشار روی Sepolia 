@@ -1,0 +1,15 @@
+scripts/deploy.js 
+const { ethers } = require("hardhat");
+
+async function main() {
+  const NFT = await ethers.getContractFactory("GameHubLogoNFT");
+  const nft = await NFT.deploy();
+  await nft.waitForDeployment();
+
+  console.log("✅ GameHubLogoNFT deployed to:", await nft.getAddress());
+}
+
+main().catch((error) => {
+  console.error(error);
+  process.exitCode = 1;
+});
