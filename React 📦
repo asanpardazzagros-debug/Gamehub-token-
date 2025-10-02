@@ -1,0 +1,4 @@
+import abi from './GameHubToken.json';
+
+const contractAddress = "آدرس قرارداد منتشرشده روی Sepolia";
+const contractABI = abi.abi;
