@@ -1,0 +1,6 @@
+const claimToken = async (toAddress, amount) => {
+  const contract = getContract();
+  const tx = await contract.mint(toAddress, ethers.parseUnits(amount, 18));
+  await tx.wait();
+  console.log("✅ Token minted to:", toAddress);
+};
