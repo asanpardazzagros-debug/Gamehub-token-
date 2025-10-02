@@ -1,0 +1,5 @@
+npx create-react-app gamehub-dashboard
+cd gamehub-dashboard
+npm install ethers
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
