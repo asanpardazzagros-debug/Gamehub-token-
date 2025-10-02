@@ -1,0 +1,80 @@
+مرحله ۱: آماده‌سازی محیط انتشار
+
+نصب ابزارها (اگر قبلاً نصب نکردی):
+`bash
+npm install --save-dev hardhat dotenv @nomicfoundation/hardhat-toolbox
+npm install @openzeppelin/contracts
+`
+
+ساخت فایل .env در ریشه پروژه:
+`env
+PRIVATE_KEY=کلیدخصوصی‌ات
+SEPOLIA_RPC=https://rpc-sepolia.example.com
+`
+
+🔐 نکته: کلید خصوصی باید مربوط به حسابی باشه که مقداری ETH تستی داره. می‌تونی از Sepolia Faucet استفاده کنی.
+
+---
+
+⚙️ مرحله ۲: تنظیم hardhat.config.js
+
+`js
+require("@nomicfoundation/hardhat-toolbox");
+require("dotenv").config();
+
+module.exports = {
+  solidity: "0.8.20",
+  networks: {
+    sepolia: {
+      url: process.env.SEPOLIA_RPC,
+      accounts: [process.env.PRIVATE_KEY],
+    },
+  },
+};
+`
+
+---
+
+🚀 مرحله ۳: اجرای اسکریپت انتشار
+
+در مسیر scripts/deploy.js این کد رو داری:
+
+`js
+const { ethers } = require("hardhat");
+
+async function main() {
+  const Token = await ethers.getContractFactory("GameHubToken");
+  const token = await Token.deploy();
+  await token.waitForDeployment();
+
+  console.log("✅ GameHubToken deployed to:", await token.getAddress());
+}
+
+main().catch((error) => {
+  console.error(error);
+  process.exitCode = 1;
+});
+`
+
+اجرای انتشار:
+`bash
+npx hardhat run scripts/deploy.js --network sepolia
+`
+
+📍 بعد از اجرا، آدرس قرارداد روی Sepolia رو در ترمینال می‌بینی.
+
+---
+
+📦 مرحله ۴: گرفتن ABI برای داشبورد
+
+بعد از انتشار، فایل ABI به صورت خودکار در مسیر زیر ساخته می‌شه:
+`
+artifacts/contracts/GameHubToken.sol/GameHubToken.json
+`
+
+از این فایل، بخش "abi" رو کپی کن و در داشبورد React استفاده کن:
+`js
+import abi from './GameHubToken.json';
+
+const contractAddress = "آدرس منتشرشده روی Sepolia";
+const contractABI = abi.abi
