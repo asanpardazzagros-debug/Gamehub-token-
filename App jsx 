@@ -1,0 +1,23 @@
+import { useState } from "react";
+import WalletConnect from "./components/WalletConnect";
+import TokenDashboard from "./components/TokenDashboard";
+import NFTGallery from "./components/NFTGallery";
+
+function App() {
+  const [userAddress, setUserAddress] = useState("");
+
+  return (
+    <div className="bg-gray-900 text-white min-h-screen p-4">
+      <h1 className="text-3xl font-bold text-center mb-4">🎮 GameHub Dashboard</h1>
+      <WalletConnect onConnect={setUserAddress} />
+      {userAddress && (
+        <>
+          <TokenDashboard userAddress={userAddress} />
+          <NFTGallery userAddress={userAddress} />
+        </>
+      )}
+    </div>
+  );
+}
+
+export default App;
